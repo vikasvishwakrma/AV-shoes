@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AV | Premium Shoes Store</title>
+  <!-- Google Fonts + simple reset -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome 6 (shopping cart, icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafafc;
+      color: #1e293b;
+      scroll-behavior: smooth;
+    }
+
+    .header {
+      background: #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, #1e2a47, #0f172a);
+      width: 48px;
+      height: 48px;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .logo-icon span {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 1px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .logo-text {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #1e293b, #2d3e5f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #334155;
+      transition: color 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: #1e40af;
+    }
+
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      background: #f1f5f9;
+      padding: 0.5rem 0.9rem;
+      border-radius: 40px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-icon i {
+      font-size: 1.4rem;
+      color: #0f172a;
+    }
+
+    .cart-count {
+      background-color: #dc2626;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 30px;
+      padding: 2px 8px;
+      min-width: 22px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .cart-icon:hover {
+      background: #e6edf4;
+    }
+
+    .hero {
+      background: linear-gradient(105deg, #f1f5f9 0%, #ffffff 100%);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid #eef2ff;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #475569;
+      margin-top: 0.6rem;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 2.5rem auto;
+      padding: 0 2rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      border-left: 5px solid #1e2a47;
+      padding-left: 1rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.12);
+    }
+
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #f8fafc;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.02);
+    }
+
+    .product-info {
+      padding: 1.2rem 1.2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #0f172a;
+    }
+
+    .product-category {
+      font-size: 0.75rem;
+      color: #5b6e8c;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.7rem;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .current-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0f2b3d;
+    }
+
+    .old-price {
+      font-size: 0.85rem;
+      color: #8c9ab0;
+      text-decoration: line-through;
+    }
+
+    .add-to-cart {
+      background: #0f172a;
+      border: none;
+      color: white;
+      padding: 0.8rem 0;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: auto;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .add-to-cart i {
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .add-to-cart:hover {
+      background: #1e293b;
+      transform: scale(0.98);
+    }
+
+    .add-to-cart:active {
+      transform: scale(0.96);
+    }
+
+    .toast-message {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: #1e293b;
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 1000;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+      background: #0f172ae6;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      white-space: nowrap;
+    }
+
+    .toast-message.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .footer {
+      background: #f1f5f9;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: #475569;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    @media (max-width: 680px) {
+      .nav-container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .products-grid {
+        gap: 1.2rem;
+      }
+
+      .hero h2 {
+        font-size: 1.6rem;
+      }
+
+      .container {
+        padding: 0 1.2rem;
+      }
+
+      .toast-message {
+        white-space: normal;
+        text-align: center;
+        font-size: 0.8rem;
+        width: max-content;
+        max-width: 85vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <span>AV</span>
+        </div>
+        <span class="logo-text">AVISION</span>
+      </a>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Men</a>
+        <a href="#">Women</a>
+        <a href="loging/loging.html">login</a>
+        <a href="#"> <i class="ri-map-pin-user-line"></i> </a>
+        <div class="cart-icon" id="cartIconBtn">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCounter">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero">
+    <h2>Step into the future of footwear</h2>
+    <p>Premium quality, iconic comfort — AV brings you the finest collection of sneakers, runners & lifestyle shoes.</p>
+  </section>
+
+  <div class="container">
+    <div class="section-title"> Trending now</div>
+    <div class="products-grid" id="productsGrid">
+
+      <div class="product-card" data-product-id="1">
+        <img class="product-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop"
+          alt="Nike Air Max" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Nike Air Max Pulse</div>
+          <div class="product-category">Running / Lifestyle</div>
+          <div class="price-row">
+            <span class="current-price">$109.99</span>
+            <span class="old-price">$149.99</span>
+          </div>
+          <button class="add-to-cart" data-name="Nike Air Max Pulse" data-price="109.99"><i
+              class="fas fa-cart-plus"></i> Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="product-card" data-product-id="2">
+        <img class="product-img" src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop"
+          alt="Adidas Ultraboost" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Adidas Ultraboost 23</div>
+          <div class="product-category">Ultra Comfort</div>
+          <div class="price-row">
+            <span class="current-price">$159.00</span>
+            <span class="old-price">$189.99</span>
+          </div>
+          <button class="add-to-cart" data-name="Adidas Ultraboost 23" data-price="159.00"><i
+              class="fas fa-cart-plus"></i> Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="product-card" data-product-id="3">
+        <img class="product-img" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400&h=400&fit=crop"
+          alt="Puma Smash" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Puma Smash v2</div>
+          <div class="product-category">Casual / Sneakers</div>
+          <div class="price-row">
+            <span class="current-price">$64.99</span>
+            <span class="old-price">$89.00</span>
+          </div>
+          <button class="add-to-cart" data-name="Puma Smash v2" data-price="64.99"><i class="fas fa-cart-plus"></i> Add
+            to Cart</button>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="product-card" data-product-id="4">
+        <img class="product-img" src="https://images.unsplash.com/photo-1581101767113-1671fc2affd4?w=400&h=400&fit=crop"
+          alt="New Balance 574" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">New Balance 574</div>
+          <div class="product-category">Heritage / Classic</div>
+          <div class="price-row">
+            <span class="current-price">$89.95</span>
+            <span class="old-price">$119.95</span>
+          </div>
+          <button class="add-to-cart" data-name="New Balance 574" data-price="89.95"><i class="fas fa-cart-plus"></i>
+            Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="product-card" data-product-id="5">
+        <img class="product-img" src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop"
+          alt="Reebok Club C" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Reebok Club C 85</div>
+          <div class="product-category">Vintage Tennis</div>
+          <div class="price-row">
+            <span class="current-price">$79.00</span>
+            <span class="old-price">$110.00</span>
+          </div>
+          <button class="add-to-cart" data-name="Reebok Club C 85" data-price="79.00"><i class="fas fa-cart-plus"></i>
+            Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="product-card" data-product-id="6">
+        <img class="product-img" src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=400&fit=crop"
+          alt="Jordan Retro" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Air Jordan 1 Retro</div>
+          <div class="product-category">High-top / Icon</div>
+          <div class="price-row">
+            <span class="current-price">$179.99</span>
+            <span class="old-price">$210.00</span>
+          </div>
+          <button class="add-to-cart" data-name="Air Jordan 1 Retro" data-price="179.99"><i
+              class="fas fa-cart-plus"></i> Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 7 -->
+      <div class="product-card" data-product-id="7">
+        <img class="product-img" src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop"
+          alt="UA Flow Velociti" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Under Armour Flow</div>
+          <div class="product-category">Performance / Running</div>
+          <div class="price-row">
+            <span class="current-price">$129.00</span>
+            <span class="old-price">$159.99</span>
+          </div>
+          <button class="add-to-cart" data-name="Under Armour Flow" data-price="129.00"><i class="fas fa-cart-plus"></i>
+            Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 8 -->
+      <div class="product-card" data-product-id="8">
+        <img class="product-img" src="https://images.unsplash.com/photo-1605348532760-6753d2c75129?w=400&h=400&fit=crop"
+          alt="Vans Sk8-Hi" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Vans Sk8-Hi</div>
+          <div class="product-category">Skate / Streetwear</div>
+          <div class="price-row">
+            <span class="current-price">$74.99</span>
+            <span class="old-price">$95.00</span>
+          </div>
+          <button class="add-to-cart" data-name="Vans Sk8-Hi" data-price="74.99"><i class="fas fa-cart-plus"></i> Add to
+            Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- add extra shoes variety : also mention price met? more shoes shown already 8 different types -->
+  <div class="container" style="margin-top: 0;">
+    <div class="section-title"> Best for athletes</div>
+    <div class="products-grid">
+      <!-- additional two premium shoes for more variety -->
+      <div class="product-card" data-product-id="9">
+        <img class="product-img" src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=400&h=400&fit=crop"
+          alt="ASICS Gel Kayano" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">ASICS Gel-Kayano 30</div>
+          <div class="product-category">Stability / Running</div>
+          <div class="price-row">
+            <span class="current-price">$144.95</span>
+            <span class="old-price">$169.95</span>
+          </div>
+          <button class="add-to-cart" data-name="ASICS Gel-Kayano 30" data-price="144.95"><i
+              class="fas fa-cart-plus"></i> Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card" data-product-id="10">
+        <img class="product-img" src="https://images.unsplash.com/photo-1605405624212-76e5b8e609c1?w=400&h=400&fit=crop"
+          alt="Hoka Clifton 9" loading="lazy">
+        <div class="product-info">
+          <div class="product-title">Hoka Clifton 9</div>
+          <div class="product-category">Max Cushion</div>
+          <div class="price-row">
+            <span class="current-price">$139.00</span>
+            <span class="old-price">$155.00</span>
+          </div>
+          <button class="add-to-cart" data-name="Hoka Clifton 9" data-price="139.00"><i class="fas fa-cart-plus"></i>
+            Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 AVISION — Built for sneaker lovers. All styles, one destination.</p>
+    <p style="margin-top: 6px; font-size: 0.7rem;"><i class="fas fa-shoe-prints"></i> AV Logo | Authentic styles &
+      premium quality</p>
+  </footer>
+
+  <!-- toast container -->
+  <div id="toastMsg" class="toast-message">Item added</div>
+
+  <script>
+    (function () {
+      // Cart state: total items count (each click increments)
+      let totalCartItems = 0;
+      const cartCountSpan = document.getElementById('cartCounter');
+      const toastEl = document.getElementById('toastMsg');
+      let toastTimeout = null;
+
+      function showToast(message) {
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastEl.textContent = message;
+        toastEl.classList.add('show');
+        toastTimeout = setTimeout(() => {
+          toastEl.classList.remove('show');
+        }, 2000);
+      }
+
+      function updateCartBadge() {
+        if (cartCountSpan) {
+          cartCountSpan.innerText = totalCartItems;
+          // subtle bounce effect
+          cartCountSpan.style.transform = 'scale(1.1)';
+          setTimeout(() => { if (cartCountSpan) cartCountSpan.style.transform = ''; }, 200);
+        }
+      }
+
+      // Handle Add to Cart buttons
+      const allCartButtons = document.querySelectorAll('.add-to-cart');
+
+      function handleAddToCart(event) {
+        const btn = event.currentTarget;
+        // retrieve product name from data-name attribute or fallback from sibling title
+        let productName = btn.getAttribute('data-name');
+        if (!productName) {
+          // fallback: get from parent product-info title
+          const card = btn.closest('.product-card');
+          if (card) {
+            const titleElem = card.querySelector('.product-title');
+            if (titleElem) productName = titleElem.innerText;
+          }
+        }
+        const priceValue = btn.getAttribute('data-price') || '0';
+
+        // Increase cart total
+        totalCartItems += 1;
+        updateCartBadge();
+
+        // Better feedback: show product name
+        const displayName = productName ? productName : 'Item';
+        showToast(`🛒 ${displayName} added to cart · $${priceValue}`);
+
+        // Optional: ripple effect on button
+        btn.style.transform = 'scale(0.96)';
+        setTimeout(() => { btn.style.transform = ''; }, 120);
+      }
+
+      allCartButtons.forEach(btn => {
+        btn.addEventListener('click', handleAddToCart);
+      });
+
+      // Cart icon click: show current cart summary (basic demo)
+      const cartIconDiv = document.getElementById('cartIconBtn');
+      if (cartIconDiv) {
+        cartIconDiv.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (totalCartItems === 0) {
+            showToast("Your cart is empty. Add some stylish shoes!");
+          } else {
+            showToast(`👟 You have ${totalCartItems} item${totalCartItems !== 1 ? 's' : ''} in your cart. Continue shopping!`);
+            // extra alert? but toast works
+          }
+        });
+      }
+
+      // additional: interactive hover style on product cards already in CSS
+      // Set init badge
+      updateCartBadge();
+
+      // For demo, if any add-to-cart missing data fallback, but all have dataset.
+      // Also provide AV logo with clean appearance. Ensure all shoe types + price met.
+      console.log("AV Shoes Store Ready — with Add to Cart functionality");
+    })();
+  </script>
+</body>
+
+</html>
